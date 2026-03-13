@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>India Semiconductor Jobs — AI-Powered Job Discovery for Freshers</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e17;--s:#111827;--s2:#1a2235;--bd:#1e293b;--ac:#6366f1;--ac2:#818cf8;--ag:rgba(99,102,241,.15);--t:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--r:10px;--g1:#22c55e;--g2:#eab308;--g3:#ef4444}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;line-height:1.6}
+a{color:var(--ac2);text-decoration:none}a:hover{text-decoration:underline}
+.hero{padding:48px 32px 28px;text-align:center;background:linear-gradient(135deg,#0f172a,#1e1b4b,#0f172a);border-bottom:1px solid var(--bd);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(99,102,241,.2),transparent 70%)}
+.hero h1{font-size:clamp(1.5rem,3.5vw,2.6rem);font-weight:900;background:linear-gradient(135deg,#e0e7ff,#818cf8,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;position:relative}
+.hero p{color:var(--t2);font-size:.92rem;max-width:650px;margin:0 auto;position:relative}
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;position:relative}
+.st{background:var(--s);border:1px solid var(--bd);border-radius:var(--r);padding:10px 20px;text-align:center}
+.st .n{font-size:1.5rem;font-weight:800;color:var(--ac2)}
+.st .l{font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
+.tabs{display:flex;justify-content:center;gap:4px;padding:12px 20px;background:rgba(17,24,39,.95);border-bottom:1px solid var(--bd)}
+.tab{padding:8px 24px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--t2);transition:all .2s}
+.tab:hover{color:var(--t);border-color:var(--bd)}
+.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.roles{padding:10px 20px;background:rgba(17,24,39,.85);border-bottom:1px solid var(--bd);display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center}
+.roles span{color:var(--t3);font-size:.75rem;font-weight:600;margin-right:4px}
+.rb{padding:5px 12px;border-radius:18px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid var(--bd);background:var(--s);color:var(--t2);transition:all .2s;user-select:none}
+.rb:hover{border-color:var(--ac);color:var(--t)}
+.rb.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.ctrl{position:sticky;top:0;z-index:100;background:rgba(10,14,23,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:10px 20px}
+.ci{max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sb{flex:1;min-width:200px;position:relative}
+.sb input{width:100%;padding:8px 12px 8px 36px;background:var(--s);border:1px solid var(--bd);border-radius:var(--r);color:var(--t);font-size:.85rem;outline:none}
+.sb input:focus{border-color:var(--ac)}
+.sb svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);width:16px;height:16px}
+select,label.tog{padding:7px 10px;background:var(--s);border:1px solid var(--bd);border-radius:var(--r);color:var(--t);font-size:.78rem;cursor:pointer;outline:none}
+label.tog{display:flex;align-items:center;gap:5px;color:var(--t2);white-space:nowrap}
+label.tog input{accent-color:var(--ac)}
+.rc{color:var(--t3);font-size:.78rem;margin-left:auto;white-space:nowrap}
+.tw{max-width:1400px;margin:0 auto;padding:14px 20px 50px;overflow-x:auto}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--s);border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);min-width:900px}
+thead{background:var(--s2)}
+th{padding:10px 10px;text-align:left;font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);white-space:nowrap}
+td{padding:10px 10px;border-top:1px solid var(--bd);font-size:.82rem;vertical-align:top}
+tr:hover td{background:var(--ag)}
+.cn{font-weight:600;color:#f1f5f9;white-space:nowrap}
+.cn a{color:#f1f5f9}.cn a:hover{color:var(--ac2)}
+.loc{color:#22d3ee;font-size:.78rem}
+.hq{color:var(--t2);font-size:.78rem}
+.desc{color:var(--t2);font-size:.78rem;max-width:250px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.dt{display:inline-block;padding:2px 7px;border-radius:12px;font-size:.65rem;font-weight:600;white-space:nowrap;margin:1px}
+.db{background:rgba(99,102,241,.12);color:#a5b4fc;border:1px solid rgba(99,102,241,.18)}
+.dp{background:rgba(168,85,247,.1);color:#c084fc;border:1px solid rgba(168,85,247,.18)}
+.dr{background:rgba(244,63,94,.08);color:#fb7185;border:1px solid rgba(244,63,94,.15)}
+.do{background:rgba(249,115,22,.08);color:#fb923c;border:1px solid rgba(249,115,22,.18)}
+.de{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.15)}
+.dg{background:rgba(34,197,94,.08);color:#4ade80;border:1px solid rgba(34,197,94,.18)}
+.da{background:rgba(245,158,11,.08);color:#fbbf24;border:1px solid rgba(245,158,11,.15)}
+.dy{background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2)}
+.sal{color:#a5b4fc;font-weight:600;font-size:.82rem;white-space:nowrap}
+.exp{font-size:.78rem;color:var(--t2)}
+.fresh{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:600}
+.fresh.y{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.fresh.n{background:rgba(100,116,139,.1);color:#64748b;border:1px solid rgba(100,116,139,.2)}
+.nr{text-align:center;padding:50px 20px;color:var(--t3)}
+.loading{text-align:center;padding:60px;color:var(--t3);font-size:.9rem}
+footer{text-align:center;padding:20px;color:var(--t3);font-size:.72rem;border-top:1px solid var(--bd)}
+@media(max-width:768px){.ci{flex-direction:column}.rc{margin-left:0}.tw{padding:8px 6px}}
+</style></head><body>
+<div class="hero">
+<h1>🇮🇳 India Semiconductor Jobs</h1>
+<p>AI-powered job discovery for hardware engineers. Real-time openings from top semiconductor companies.</p>
+<div class="stats">
+<div class="st"><div class="n" id="s_jobs">—</div><div class="l">Jobs</div></div>
+<div class="st"><div class="n" id="s_companies">—</div><div class="l">Companies</div></div>
+<div class="st"><div class="n" id="s_fresher">—</div><div class="l">Fresher Jobs</div></div>
+<div class="st"><div class="n" id="s_domains">—</div><div class="l">Domains</div></div>
+</div></div>
+<div class="tabs">
+<div class="tab on" data-tab="jobs">💼 Job Openings</div>
+<div class="tab" data-tab="companies">🏢 Company Database</div>
+</div>
+<div class="roles" id="roleBar"><span>🎯 Filter by Domain:</span></div>
+<div class="ctrl"><div class="ci">
+<div class="sb"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input type="text" id="q" placeholder="Search jobs, companies, skills..."></div>
+<select id="sort">
+<option value="best">🏆 Best for Freshers</option>
+<option value="recent">🕐 Most Recent</option>
+<option value="salary">💰 Highest Salary</option>
+<option value="name">🔤 Company Name</option>
+</select>
+<select id="salF"><option value="">💰 Any Salary</option><option value="5">Above ₹5 LPA</option><option value="10">Above ₹10 LPA</option><option value="15">Above ₹15 LPA</option><option value="20">Above ₹20 LPA</option></select>
+<label class="tog"><input type="checkbox" id="ffilt" checked>Fresher Only</label>
+<span class="rc" id="rcount">Loading...</span>
+</div></div>
+<div class="tw">
+<div class="loading" id="loadMsg">⏳ Loading semiconductor jobs...</div>
+<table style="display:none" id="tbl"><thead id="thead"></thead><tbody id="tb"></tbody></table>
+<div class="nr" id="nr" style="display:none"><h3 style="color:var(--t2)">No results found</h3><p>Try adjusting your filters.</p></div>
+</div>
+<footer>India Semiconductor Jobs Platform — AI-Powered Job Discovery for Hardware Engineers — 2026</footer>
+<script>
+const API=window.location.origin+"/api";
+const DCLS={VLSI:"db","RTL Design":"db","Physical Design":"dp",STA:"dp",DFT:"dp",Verification:"dr",FPGA:"do","Embedded Systems":"dg","Hardware Design":"dg","AI Hardware":"de","Networking Silicon":"da","SoC Architecture":"db","Analog/Mixed Signal":"dp","Processor Design":"da",General:"dy"};
+let activeTab="jobs",activeDomain="",searchQ="",sortMode="best",salMin="",fresherOnly=true;
+let jobsData=[],compData=[];
+
+async function loadStats(){
+  try{const r=await fetch(API+"/stats");const d=await r.json();
+  document.getElementById("s_jobs").textContent=d.jobs||0;
+  document.getElementById("s_companies").textContent=d.companies||0;
+  document.getElementById("s_fresher").textContent=d.fresher_jobs||0;
+  document.getElementById("s_domains").textContent=d.domains||0;
+  }catch(e){console.error("Stats error:",e)}
+}
+
+async function loadDomains(){
+  try{const r=await fetch(API+"/domains");const d=await r.json();
+  const bar=document.getElementById("roleBar");
+  const allDomains=["VLSI","RTL Design","Physical Design","STA","DFT","Verification","FPGA","Embedded Systems","Hardware Design","AI Hardware","SoC Architecture","Analog/Mixed Signal"];
+  allDomains.forEach(dm=>{const b=document.createElement("div");b.className="rb";b.textContent=dm;b.dataset.d=dm;
+  b.onclick=()=>{if(activeDomain===dm){activeDomain="";b.classList.remove("on")}else{document.querySelectorAll(".rb").forEach(x=>x.classList.remove("on"));activeDomain=dm;b.classList.add("on")}loadData()};bar.appendChild(b)});
+  }catch(e){console.error(e)}
+}
+
+async function loadData(){
+  const loader=document.getElementById("loadMsg");const tbl=document.getElementById("tbl");const nr=document.getElementById("nr");
+  loader.style.display="block";tbl.style.display="none";nr.style.display="none";
+  try{
+    if(activeTab==="jobs"){
+      let url=API+"/jobs?limit=100&sort="+sortMode;
+      if(activeDomain)url+="&domain="+encodeURIComponent(activeDomain);
+      if(searchQ)url+="&search="+encodeURIComponent(searchQ);
+      if(fresherOnly)url+="&fresher=true";
+      if(salMin)url+="&salary_min="+salMin;
+      const r=await fetch(url);jobsData=await r.json();
+      renderJobs();
+    }else{
+      let url=API+"/companies?limit=300&sort="+sortMode;
+      if(activeDomain)url+="&domain="+encodeURIComponent(activeDomain);
+      if(searchQ)url+="&search="+encodeURIComponent(searchQ);
+      const r=await fetch(url);compData=await r.json();
+      renderCompanies();
+    }
+  }catch(e){console.error(e);loader.textContent="❌ Failed to load. Is the API running?"}
+}
+
+function renderJobs(){
+  const tbl=document.getElementById("tbl");const tb=document.getElementById("tb");
+  const thead=document.getElementById("thead");const nr=document.getElementById("nr");const loader=document.getElementById("loadMsg");
+  thead.innerHTML="<tr><th>Company</th><th>Role</th><th>Domain</th><th>Location</th><th>Salary</th><th>Fresher</th><th>Source</th></tr>";
+  loader.style.display="none";
+  if(!jobsData.length){nr.style.display="block";tbl.style.display="none";document.getElementById("rcount").textContent="0 jobs";return}
+  nr.style.display="none";tbl.style.display="table";
+  document.getElementById("rcount").textContent=jobsData.length+" jobs";
+  tb.innerHTML=jobsData.map(j=>{
+    const dm=j.domain||"General";const cls=DCLS[dm]||"dy";
+    const sal=j.salary_max?`₹${j.salary_min||0}-${j.salary_max} LPA`:"—";
+    const fr=j.fresher_suitable?'<span class="fresh y">✓ Fresher</span>':'<span class="fresh n">Exp</span>';
+    const link=j.url?`<a href="${j.url}" target="_blank">${j.title}</a>`:j.title;
+    return`<tr><td class="cn">${j.company_name}</td><td>${link}</td><td><span class="dt ${cls}">${dm}</span></td><td class="loc">${j.location||'India'}</td><td class="sal">${sal}</td><td>${fr}</td><td class="hq">${j.source||''}</td></tr>`
+  }).join("");
+}
+
+function renderCompanies(){
+  const tbl=document.getElementById("tbl");const tb=document.getElementById("tb");
+  const thead=document.getElementById("thead");const nr=document.getElementById("nr");const loader=document.getElementById("loadMsg");
+  thead.innerHTML="<tr><th>Company</th><th>HQ</th><th>India Locations</th><th>Category</th><th>Fresher Salary</th><th>Score</th><th>Description</th></tr>";
+  loader.style.display="none";
+  if(!compData.length){nr.style.display="block";tbl.style.display="none";document.getElementById("rcount").textContent="0 companies";return}
+  nr.style.display="none";tbl.style.display="table";
+  document.getElementById("rcount").textContent=compData.length+" companies";
+  tb.innerHTML=compData.map(c=>{
+    const sal=c.fresher_salary_max?`₹${c.fresher_salary_min||0}-${c.fresher_salary_max} LPA`:"—";
+    const sc=c.fresher_score||0;const dots=Array.from({length:5},(_,i)=>`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${i<sc?(sc>=4?'#22c55e':sc>=3?'#eab308':'#ef4444'):'#334155'};margin:0 1px"></span>`).join("");
+    return`<tr><td class="cn">${c.name}</td><td class="hq">${c.hq_country||''}</td><td class="loc">${c.india_locations||''}</td><td>${c.category||''}</td><td class="sal">${sal}</td><td>${dots} <small style="color:var(--t3)">${sc}/5</small></td><td class="desc">${c.description||''}</td></tr>`
+  }).join("");
+}
+
+// Event listeners
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));t.classList.add("on");activeTab=t.dataset.tab;loadData()}});
+document.getElementById("q").addEventListener("input",e=>{searchQ=e.target.value;clearTimeout(window._st);window._st=setTimeout(loadData,400)});
+document.getElementById("sort").addEventListener("change",e=>{sortMode=e.target.value;loadData()});
+document.getElementById("salF").addEventListener("change",e=>{salMin=e.target.value;loadData()});
+document.getElementById("ffilt").addEventListener("change",e=>{fresherOnly=e.target.checked;loadData()});
+
+// Init
+loadStats();loadDomains();loadData();
+</script></body></html>

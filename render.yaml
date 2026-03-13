@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: semi-jobs-india
+    env: docker
+    plan: free
+    region: singapore
+    postDeployCommand: python scraper/seed_companies.py
