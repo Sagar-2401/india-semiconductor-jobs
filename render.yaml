@@ -4,4 +4,3 @@ services:
     env: docker
     plan: free
     region: singapore
-    postDeployCommand: python scraper/seed_companies.py
