@@ -8,9 +8,20 @@ sys.path.insert(0, ROOT)
 from backend.database import init_db, insert_company, get_db
 
 def seed_companies():
-    md_file = r"C:\Users\sagar\.gemini\antigravity\brain\5b2d8df6-b024-42f1-826d-d439c3db847e\india_semiconductor_database.md"
-    if not os.path.exists(md_file):
-        print(f"File not found: {md_file}")
+    # Try multiple locations for the company data file
+    possible_paths = [
+        os.path.join(ROOT, "data", "india_semiconductor_database.md"),
+        os.path.join(ROOT, "india_semiconductor_database.md"),
+        os.environ.get("COMPANY_DATA_FILE", ""),
+    ]
+    md_file = None
+    for p in possible_paths:
+        if p and os.path.exists(p):
+            md_file = p
+            break
+    if not md_file:
+        print("[SEED] Company database file not found. Skipping seed.")
+        print(f"[SEED] Looked in: {possible_paths[:2]}")
         return
 
     with open(md_file, "r", encoding="utf-8") as f:

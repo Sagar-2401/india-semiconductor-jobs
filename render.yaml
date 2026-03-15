@@ -4,3 +4,14 @@ services:
     env: docker
     plan: free
     region: singapore
+    envVars:
+      - key: DB_PATH
+        value: data/semijobs.db
+      - key: JSEARCH_API_KEY
+        sync: false
+      - key: ADZUNA_APP_ID
+        sync: false
+      - key: ADZUNA_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false

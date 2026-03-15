@@ -1,5 +1,10 @@
 name: Scrape Semiconductor Jobs
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scraper/**'
+      - '.github/workflows/scrape.yml'
   schedule:
     - cron: '0 */6 * * *'   # Every 6 hours
   workflow_dispatch:         # Manual trigger from GitHub UI
