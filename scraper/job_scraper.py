@@ -209,6 +209,11 @@ def main():
     print("  Semiconductor Job Scraper")
     print(f"  Time: {datetime.now().isoformat()}")
     print("=" * 60)
+
+    # Ensure data directory exists
+    db_path = os.environ.get("DB_PATH", os.path.join(ROOT, "data", "semijobs.db"))
+    os.makedirs(os.path.dirname(os.path.abspath(db_path)), exist_ok=True)
+
     init_db()
     all_jobs = []
     has_api_keys = bool(os.environ.get("JSEARCH_API_KEY") or os.environ.get("ADZUNA_APP_ID"))
@@ -240,4 +245,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"[FATAL] Scraper failed: {e}")
+        sys.exit(1)
+
