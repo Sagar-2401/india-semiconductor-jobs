@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>India Semiconductor Jobs — AI-Powered Job Discovery for Freshers</title>
+<title>India Semiconductor Jobs — AI-Powered Job Discovery & Resume Analyzer</title>
+<meta name="description" content="AI-powered semiconductor job discovery platform for India. Find VLSI, FPGA, Embedded jobs. Analyze your resume with ATS scoring.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0e17;--s:#111827;--s2:#1a2235;--bd:#1e293b;--ac:#6366f1;--ac2:#818cf8;--ag:rgba(99,102,241,.15);--t:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--r:10px;--g1:#22c55e;--g2:#eab308;--g3:#ef4444}
+:root{--bg:#0a0e17;--s:#111827;--s2:#1a2235;--bd:#1e293b;--ac:#6366f1;--ac2:#818cf8;--ag:rgba(99,102,241,.15);--t:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--r:10px;--g1:#22c55e;--g2:#eab308;--g3:#ef4444;--teal:#06b6d4;--pink:#ec4899;--orange:#f97316}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;line-height:1.6}
 a{color:var(--ac2);text-decoration:none}a:hover{text-decoration:underline}
 .hero{padding:48px 32px 28px;text-align:center;background:linear-gradient(135deg,#0f172a,#1e1b4b,#0f172a);border-bottom:1px solid var(--bd);position:relative;overflow:hidden}
@@ -12,9 +13,13 @@ a{color:var(--ac2);text-decoration:none}a:hover{text-decoration:underline}
 .hero h1{font-size:clamp(1.5rem,3.5vw,2.6rem);font-weight:900;background:linear-gradient(135deg,#e0e7ff,#818cf8,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;position:relative}
 .hero p{color:var(--t2);font-size:.92rem;max-width:650px;margin:0 auto;position:relative}
 .stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;position:relative}
-.st{background:var(--s);border:1px solid var(--bd);border-radius:var(--r);padding:10px 20px;text-align:center}
+.st{background:var(--s);border:1px solid var(--bd);border-radius:var(--r);padding:10px 20px;text-align:center;transition:transform .2s}
+.st:hover{transform:translateY(-2px)}
 .st .n{font-size:1.5rem;font-weight:800;color:var(--ac2)}
 .st .l{font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
+.refresh-badge{margin-top:10px;font-size:.72rem;color:var(--t3);position:relative;display:flex;align-items:center;justify-content:center;gap:6px}
+.refresh-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--g1);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .tabs{display:flex;justify-content:center;gap:4px;padding:12px 20px;background:rgba(17,24,39,.95);border-bottom:1px solid var(--bd)}
 .tab{padding:8px 24px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--t2);transition:all .2s}
 .tab:hover{color:var(--t);border-color:var(--bd)}
@@ -62,21 +67,85 @@ tr:hover td{background:var(--ag)}
 .nr{text-align:center;padding:50px 20px;color:var(--t3)}
 .loading{text-align:center;padding:60px;color:var(--t3);font-size:.9rem}
 footer{text-align:center;padding:20px;color:var(--t3);font-size:.72rem;border-top:1px solid var(--bd)}
-@media(max-width:768px){.ci{flex-direction:column}.rc{margin-left:0}.tw{padding:8px 6px}}
+@media(max-width:768px){.ci{flex-direction:column}.rc{margin-left:0}.tw{padding:8px 6px}.resume-grid{grid-template-columns:1fr!important}}
+
+/* ─── RESUME ANALYZER STYLES ────────────────────────────────────────── */
+.resume-panel{max-width:1200px;margin:0 auto;padding:24px 20px 50px}
+.upload-zone{background:var(--s);border:2px dashed var(--bd);border-radius:16px;padding:48px 32px;text-align:center;cursor:pointer;transition:all .3s;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--ac);background:var(--ag)}
+.upload-zone svg{width:48px;height:48px;color:var(--t3);margin-bottom:12px}
+.upload-zone h3{font-size:1.1rem;color:var(--t);margin-bottom:6px}
+.upload-zone p{color:var(--t3);font-size:.82rem}
+.upload-controls{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:16px;flex-wrap:wrap}
+.upload-controls select{padding:8px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;color:var(--t);font-size:.82rem;outline:none}
+.upload-controls select:focus{border-color:var(--ac)}
+.upload-btn{padding:8px 24px;background:linear-gradient(135deg,var(--ac),#7c3aed);border:none;border-radius:8px;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s}
+.upload-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,.4)}
+.upload-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.file-info{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--s2);border-radius:8px;font-size:.8rem;color:var(--t2)}
+.file-info .remove{color:var(--g3);cursor:pointer;font-weight:700}
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+.result-card{background:var(--s);border:1px solid var(--bd);border-radius:12px;padding:24px;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.result-card h3{font-size:1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* ATS Gauge */
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
+.gauge{position:relative;width:140px;height:140px}
+.gauge svg{transform:rotate(-90deg)}
+.gauge circle{fill:none;stroke-width:10}
+.gauge .bg{stroke:#1e293b}
+.gauge .fill{stroke-linecap:round;transition:stroke-dashoffset 1.5s ease}
+.gauge .score{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge .score .num{font-size:2rem;font-weight:900}
+.gauge .score .lbl{font-size:.7rem;color:var(--t3);text-transform:uppercase}
+.gauge-rating{margin-top:8px;font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:16px}
+
+/* Category bars */
+.cat-bars{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.cat-bar{display:flex;align-items:center;gap:8px;font-size:.78rem}
+.cat-bar .name{width:100px;color:var(--t2);text-align:right;flex-shrink:0;font-size:.72rem}
+.cat-bar .bar{flex:1;height:8px;background:var(--s2);border-radius:4px;overflow:hidden}
+.cat-bar .bar .fill{height:100%;border-radius:4px;transition:width 1s ease}
+.cat-bar .val{width:35px;color:var(--t3);font-size:.72rem}
+
+/* Role match */
+.role-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.fit-badge{font-size:1.8rem;font-weight:900;padding:8px 16px;border-radius:12px;line-height:1}
+.skills-row{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.sk{padding:3px 8px;border-radius:8px;font-size:.7rem;font-weight:600}
+.sk.hit{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.sk.miss{background:rgba(239,68,68,.08);color:#f87171;border:1px solid rgba(239,68,68,.15)}
+.sk.tool{background:rgba(6,182,212,.08);color:#22d3ee;border:1px solid rgba(6,182,212,.15)}
+.suggestion-list{list-style:none;padding:0;margin-top:12px}
+.suggestion-list li{padding:6px 0;font-size:.82rem;color:var(--t2);border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;gap:6px}
+.suggestion-list li:last-child{border:none}
+.suggestion-list li::before{content:'💡';flex-shrink:0}
+.strengths-list{list-style:none;padding:0}
+.strengths-list li{padding:4px 0;font-size:.82rem;color:var(--g1);display:flex;align-items:flex-start;gap:6px}
+.strengths-list li::before{content:'✅';flex-shrink:0}
+.section-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin:14px 0 6px}
+.analyzing{text-align:center;padding:60px 20px}
+.analyzing .spinner{width:40px;height:40px;border:3px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style></head><body>
 <div class="hero">
 <h1>🇮🇳 India Semiconductor Jobs</h1>
-<p>AI-powered job discovery for hardware engineers. Real-time openings from top semiconductor companies.</p>
+<p>AI-powered job discovery & resume analysis for hardware engineers. Real-time openings updated every 30 minutes.</p>
 <div class="stats">
 <div class="st"><div class="n" id="s_jobs">—</div><div class="l">Jobs</div></div>
 <div class="st"><div class="n" id="s_companies">—</div><div class="l">Companies</div></div>
 <div class="st"><div class="n" id="s_fresher">—</div><div class="l">Fresher Jobs</div></div>
 <div class="st"><div class="n" id="s_domains">—</div><div class="l">Domains</div></div>
-</div></div>
+</div>
+<div class="refresh-badge"><span class="dot"></span> <span id="refreshTime">Auto-refreshing every 30 min</span></div>
+</div>
 <div class="tabs">
 <div class="tab on" data-tab="jobs">💼 Job Openings</div>
 <div class="tab" data-tab="companies">🏢 Company Database</div>
+<div class="tab" data-tab="resume">📄 Resume Analyzer</div>
 </div>
+<div id="jobCompanyView">
 <div class="roles" id="roleBar"><span>🎯 Filter by Domain:</span></div>
 <div class="ctrl"><div class="ci">
 <div class="sb"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -96,19 +165,59 @@ footer{text-align:center;padding:20px;color:var(--t3);font-size:.72rem;border-to
 <table style="display:none" id="tbl"><thead id="thead"></thead><tbody id="tb"></tbody></table>
 <div class="nr" id="nr" style="display:none"><h3 style="color:var(--t2)">No results found</h3><p>Try adjusting your filters.</p></div>
 </div>
-<footer>India Semiconductor Jobs Platform — AI-Powered Job Discovery for Hardware Engineers — 2026</footer>
+</div>
+
+<!-- ═══ RESUME ANALYZER PANEL ═══ -->
+<div id="resumeView" style="display:none">
+<div class="resume-panel">
+<div class="upload-zone" id="dropZone">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+<h3>Drop your resume PDF here</h3>
+<p>or click to browse • PDF files only • Max 10MB</p>
+<input type="file" id="fileInput" accept=".pdf" style="display:none">
+</div>
+<div class="upload-controls" id="uploadControls" style="display:none">
+<div class="file-info" id="fileInfo"><span id="fileName"></span> <span class="remove" id="removeFile">✕</span></div>
+<select id="targetRole">
+<option value="VLSI">🎯 VLSI Design</option>
+<option value="RTL Design">🎯 RTL Design</option>
+<option value="Physical Design">🎯 Physical Design</option>
+<option value="Verification">🎯 Verification</option>
+<option value="STA">🎯 STA</option>
+<option value="DFT">🎯 DFT</option>
+<option value="FPGA">🎯 FPGA</option>
+<option value="Embedded Systems">🎯 Embedded Systems</option>
+<option value="Hardware Design">🎯 Hardware Design</option>
+<option value="AI Hardware">🎯 AI Hardware</option>
+<option value="Analog/Mixed Signal">🎯 Analog/Mixed Signal</option>
+<option value="SoC Architecture">🎯 SoC Architecture</option>
+<option value="Processor Design">🎯 Processor Design</option>
+</select>
+<button class="upload-btn" id="analyzeBtn" onclick="analyzeResume()">🔍 Analyze Resume</button>
+</div>
+<div id="resumeResults"></div>
+</div>
+</div>
+
+<footer>India Semiconductor Jobs Platform v2.0 — AI-Powered Job Discovery & Resume Analysis — 2026</footer>
 <script>
 const API=window.location.origin+"/api";
 const DCLS={VLSI:"db","RTL Design":"db","Physical Design":"dp",STA:"dp",DFT:"dp",Verification:"dr",FPGA:"do","Embedded Systems":"dg","Hardware Design":"dg","AI Hardware":"de","Networking Silicon":"da","SoC Architecture":"db","Analog/Mixed Signal":"dp","Processor Design":"da",General:"dy"};
 let activeTab="jobs",activeDomain="",searchQ="",sortMode="best",salMin="",fresherOnly=true;
-let jobsData=[],compData=[];
+let jobsData=[],compData=[],selectedFile=null;
 
+// ─── STATS & REFRESH ───────────────────────────
 async function loadStats(){
   try{const r=await fetch(API+"/stats");const d=await r.json();
   document.getElementById("s_jobs").textContent=d.jobs||0;
   document.getElementById("s_companies").textContent=d.companies||0;
   document.getElementById("s_fresher").textContent=d.fresher_jobs||0;
   document.getElementById("s_domains").textContent=d.domains||0;
+  if(d.last_refresh){
+    const t=new Date(d.last_refresh);const now=new Date();
+    const mins=Math.floor((now-t)/60000);
+    document.getElementById("refreshTime").textContent=mins<2?"Just refreshed":`Updated ${mins} min ago • Auto-refresh every 30 min`;
+  }
   }catch(e){console.error("Stats error:",e)}
 }
 
@@ -121,6 +230,7 @@ async function loadDomains(){
   }catch(e){console.error(e)}
 }
 
+// ─── DATA LOADING ───────────────────────────────
 async function loadData(){
   const loader=document.getElementById("loadMsg");const tbl=document.getElementById("tbl");const nr=document.getElementById("nr");
   loader.style.display="block";tbl.style.display="none";nr.style.display="none";
@@ -133,7 +243,7 @@ async function loadData(){
       if(salMin)url+="&salary_min="+salMin;
       const r=await fetch(url);jobsData=await r.json();
       renderJobs();
-    }else{
+    }else if(activeTab==="companies"){
       let url=API+"/companies?limit=300&sort="+sortMode;
       if(activeDomain)url+="&domain="+encodeURIComponent(activeDomain);
       if(searchQ)url+="&search="+encodeURIComponent(searchQ);
@@ -175,13 +285,126 @@ function renderCompanies(){
   }).join("");
 }
 
-// Event listeners
-document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));t.classList.add("on");activeTab=t.dataset.tab;loadData()}});
+// ─── TAB SWITCHING ──────────────────────────────
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));t.classList.add("on");
+  activeTab=t.dataset.tab;
+  const jcv=document.getElementById("jobCompanyView");
+  const rv=document.getElementById("resumeView");
+  if(activeTab==="resume"){jcv.style.display="none";rv.style.display="block"}
+  else{jcv.style.display="block";rv.style.display="none";loadData()}
+}});
+
 document.getElementById("q").addEventListener("input",e=>{searchQ=e.target.value;clearTimeout(window._st);window._st=setTimeout(loadData,400)});
 document.getElementById("sort").addEventListener("change",e=>{sortMode=e.target.value;loadData()});
 document.getElementById("salF").addEventListener("change",e=>{salMin=e.target.value;loadData()});
 document.getElementById("ffilt").addEventListener("change",e=>{fresherOnly=e.target.checked;loadData()});
 
-// Init
+// ─── RESUME UPLOAD & ANALYSIS ───────────────────
+const dropZone=document.getElementById("dropZone");
+const fileInput=document.getElementById("fileInput");
+
+dropZone.onclick=(e)=>{if(e.target.id!=='removeFile')fileInput.click()};
+dropZone.addEventListener("dragover",e=>{e.preventDefault();dropZone.classList.add("drag")});
+dropZone.addEventListener("dragleave",()=>dropZone.classList.remove("drag"));
+dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag");
+  if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0])});
+fileInput.addEventListener("change",e=>{if(e.target.files.length)handleFile(e.target.files[0])});
+
+document.getElementById("removeFile").onclick=(e)=>{
+  e.stopPropagation();selectedFile=null;
+  document.getElementById("uploadControls").style.display="none";
+  document.getElementById("resumeResults").innerHTML="";
+  fileInput.value="";
+};
+
+function handleFile(file){
+  if(!file.name.toLowerCase().endsWith('.pdf')){alert("Please upload a PDF file.");return}
+  if(file.size>10*1024*1024){alert("File too large. Maximum 10MB.");return}
+  selectedFile=file;
+  document.getElementById("fileName").textContent=file.name+` (${(file.size/1024).toFixed(0)} KB)`;
+  document.getElementById("uploadControls").style.display="flex";
+}
+
+async function analyzeResume(){
+  if(!selectedFile)return;
+  const btn=document.getElementById("analyzeBtn");
+  btn.disabled=true;btn.textContent="⏳ Analyzing...";
+  const results=document.getElementById("resumeResults");
+  results.innerHTML=`<div class="analyzing"><div class="spinner"></div><p>Analyzing your resume...</p><p style="color:var(--t3);font-size:.78rem;margin-top:4px">Checking ATS compatibility & role match</p></div>`;
+
+  const formData=new FormData();
+  formData.append("file",selectedFile);
+  formData.append("role",document.getElementById("targetRole").value);
+
+  try{
+    const r=await fetch(API+"/resume/analyze",{method:"POST",body:formData});
+    const d=await r.json();
+    if(d.error){results.innerHTML=`<div class="result-card"><h3>❌ Error</h3><p>${d.error}</p></div>`;return}
+    renderResumeResults(d);
+  }catch(e){results.innerHTML=`<div class="result-card"><h3>❌ Error</h3><p>Failed to analyze. Is the server running?</p></div>`}
+  finally{btn.disabled=false;btn.textContent="🔍 Analyze Resume"}
+}
+
+function renderResumeResults(d){
+  const ats=d.ats;const role=d.role_match;
+  const total=ats.total_score;
+  const color=total>=75?"#22c55e":total>=50?"#eab308":"#ef4444";
+  const ratingColor=total>=75?"rgba(34,197,94,.15)":total>=50?"rgba(234,179,8,.15)":"rgba(239,68,68,.15)";
+  const circumference=2*Math.PI*55;
+  const offset=circumference-(total/100)*circumference;
+  const fitScore=role.role_fit_score;
+  const fitColor=fitScore>=7?"#22c55e":fitScore>=5?"#eab308":"#ef4444";
+
+  const barMaxes={formatting:20,contact_info:10,sections:20,keywords:25,length_content:15,quantification:10};
+  const barNames={formatting:"Formatting",contact_info:"Contact Info",sections:"Sections",keywords:"Keywords",length_content:"Length",quantification:"Metrics"};
+  let barsHTML="";
+  for(const[k,max]of Object.entries(barMaxes)){
+    const val=ats.breakdown[k]||0;const pct=Math.round(val/max*100);
+    const bc=pct>=75?"#22c55e":pct>=50?"#eab308":"#ef4444";
+    barsHTML+=`<div class="cat-bar"><span class="name">${barNames[k]}</span><div class="bar"><div class="fill" style="width:${pct}%;background:${bc}"></div></div><span class="val">${val}/${max}</span></div>`;
+  }
+
+  const matchedHTML=role.matched_skills.map(s=>`<span class="sk hit">${s}</span>`).join("");
+  const missingHTML=role.missing_skills.map(s=>`<span class="sk miss">${s}</span>`).join("");
+  const toolsHTML=(role.matched_tools||[]).map(s=>`<span class="sk tool">${s}</span>`).join("");
+  const suggestHTML=(ats.suggestions.concat(role.suggestions)).slice(0,8).map(s=>`<li>${s}</li>`).join("");
+  const strengthsHTML=(role.strengths||[]).map(s=>`<li>${s}</li>`).join("");
+
+  document.getElementById("resumeResults").innerHTML=`
+  <div class="resume-grid">
+    <div class="result-card">
+      <h3>📊 ATS Compatibility Score</h3>
+      <div class="gauge-wrap">
+        <div class="gauge">
+          <svg width="140" height="140"><circle class="bg" cx="70" cy="70" r="55"/><circle class="fill" cx="70" cy="70" r="55" style="stroke:${color};stroke-dasharray:${circumference};stroke-dashoffset:${offset}"/></svg>
+          <div class="score"><span class="num" style="color:${color}">${total}</span><span class="lbl">out of 100</span></div>
+        </div>
+        <span class="gauge-rating" style="background:${ratingColor};color:${color}">${ats.rating}</span>
+      </div>
+      <div class="cat-bars">${barsHTML}</div>
+      <div style="margin-top:16px;padding:12px;background:var(--s2);border-radius:8px;font-size:.78rem;color:var(--t3)">
+        📄 ${ats.stats.pages} page${ats.stats.pages!==1?'s':''} • ${ats.stats.word_count} words • ${ats.stats.keywords_found} keywords • ${ats.stats.bullet_points} bullet points
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="role-header">
+        <h3>🎯 Role Match: ${role.target_role}</h3>
+        <div class="fit-badge" style="color:${fitColor};background:${fitColor}15;border:1px solid ${fitColor}30">${fitScore}/10</div>
+      </div>
+      <div style="font-size:.82rem;color:var(--t2);margin-bottom:8px">Skill match: <strong style="color:${fitColor}">${role.skill_match_percentage}%</strong></div>
+      ${matchedHTML?`<div class="section-label">✅ Matched Skills</div><div class="skills-row">${matchedHTML}</div>`:''}
+      ${missingHTML?`<div class="section-label">❌ Missing Skills</div><div class="skills-row">${missingHTML}</div>`:''}
+      ${toolsHTML?`<div class="section-label">🛠️ EDA Tools Found</div><div class="skills-row">${toolsHTML}</div>`:''}
+      ${strengthsHTML?`<div class="section-label">💪 Strengths</div><ul class="strengths-list">${strengthsHTML}</ul>`:''}
+    </div>
+  </div>
+  ${suggestHTML?`<div class="result-card" style="margin-top:20px"><h3>💡 Improvement Suggestions</h3><ul class="suggestion-list">${suggestHTML}</ul></div>`:''}`;
+}
+
+// ─── AUTO-REFRESH STATS ─────────────────────────
+setInterval(loadStats,60000); // Refresh stats badge every minute
+
+// ─── INIT ───────────────────────────────────────
 loadStats();loadDomains();loadData();
 </script></body></html>
