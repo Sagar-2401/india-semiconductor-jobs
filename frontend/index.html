@@ -128,6 +128,20 @@ footer{text-align:center;padding:20px;color:var(--t3);font-size:.72rem;border-to
 .analyzing{text-align:center;padding:60px 20px}
 .analyzing .spinner{width:40px;height:40px;border:3px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* Company ATS Rankings */
+.company-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--s);border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);margin-top:12px}
+.company-table th{padding:8px 10px;text-align:left;font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);background:var(--s2)}
+.company-table td{padding:8px 10px;border-top:1px solid var(--bd);font-size:.8rem}
+.company-table tr:hover td{background:var(--ag)}
+.pass-bar{display:flex;align-items:center;gap:6px}
+.pass-bar .bar{flex:1;height:8px;background:var(--s2);border-radius:4px;overflow:hidden;min-width:60px}
+.pass-bar .bar .fill{height:100%;border-radius:4px;transition:width 1s ease}
+.pass-bar .pct{font-size:.75rem;font-weight:700;min-width:32px}
+.ats-badge{font-size:.65rem;padding:2px 6px;border-radius:6px;background:rgba(100,116,139,.12);color:var(--t3);border:1px solid var(--bd)}
+.company-detail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.company-detail .cd-box{padding:10px;background:var(--s2);border-radius:8px}
+.company-detail .cd-box h4{font-size:.72rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 </style></head><body>
 <div class="hero">
 <h1>🇮🇳 India Semiconductor Jobs</h1>
@@ -192,6 +206,21 @@ footer{text-align:center;padding:20px;color:var(--t3);font-size:.72rem;border-to
 <option value="Analog/Mixed Signal">🎯 Analog/Mixed Signal</option>
 <option value="SoC Architecture">🎯 SoC Architecture</option>
 <option value="Processor Design">🎯 Processor Design</option>
+</select>
+<select id="targetCompany">
+<option value="">🏢 All Companies (Rank All)</option>
+<option value="Intel">🏢 Intel</option>
+<option value="AMD">🏢 AMD</option>
+<option value="NVIDIA">🏢 NVIDIA</option>
+<option value="Qualcomm">🏢 Qualcomm</option>
+<option value="Texas Instruments">🏢 Texas Instruments</option>
+<option value="Synopsys">🏢 Synopsys</option>
+<option value="Cadence">🏢 Cadence</option>
+<option value="Samsung">🏢 Samsung</option>
+<option value="Broadcom">🏢 Broadcom</option>
+<option value="Tata Elxsi">🏢 Tata Elxsi</option>
+<option value="Wipro">🏢 Wipro</option>
+<option value="HCL">🏢 HCL</option>
 </select>
 <button class="upload-btn" id="analyzeBtn" onclick="analyzeResume()">🔍 Analyze Resume</button>
 </div>
@@ -336,6 +365,7 @@ async function analyzeResume(){
   const formData=new FormData();
   formData.append("file",selectedFile);
   formData.append("role",document.getElementById("targetRole").value);
+  formData.append("company",document.getElementById("targetCompany").value);
 
   try{
     const r=await fetch(API+"/resume/analyze",{method:"POST",body:formData});
@@ -356,8 +386,8 @@ function renderResumeResults(d){
   const fitScore=role.role_fit_score;
   const fitColor=fitScore>=7?"#22c55e":fitScore>=5?"#eab308":"#ef4444";
 
-  const barMaxes={formatting:20,contact_info:10,sections:20,keywords:25,length_content:15,quantification:10};
-  const barNames={formatting:"Formatting",contact_info:"Contact Info",sections:"Sections",keywords:"Keywords",length_content:"Length",quantification:"Metrics"};
+  const barMaxes={formatting:20,contact_info:10,sections:15,keywords:25,action_impact:15,length_content:15};
+  const barNames={formatting:"Formatting",contact_info:"Contact Info",sections:"Sections",keywords:"Keywords",action_impact:"Actions & Impact",length_content:"Length"};
   let barsHTML="";
   for(const[k,max]of Object.entries(barMaxes)){
     const val=ats.breakdown[k]||0;const pct=Math.round(val/max*100);
@@ -399,7 +429,34 @@ function renderResumeResults(d){
       ${strengthsHTML?`<div class="section-label">💪 Strengths</div><ul class="strengths-list">${strengthsHTML}</ul>`:''}
     </div>
   </div>
-  ${suggestHTML?`<div class="result-card" style="margin-top:20px"><h3>💡 Improvement Suggestions</h3><ul class="suggestion-list">${suggestHTML}</ul></div>`:''}`;
+  ${suggestHTML?`<div class="result-card" style="margin-top:20px"><h3>💡 Improvement Suggestions</h3><ul class="suggestion-list">${suggestHTML}
+
+function renderCompanyBypass(ca){
+  if(!ca) return '';
+  if(ca.mode==="all" && ca.rankings){
+    const rows=ca.rankings.map(r=>{
+      const p=r.pass_probability;
+      const c=p>=70?'#22c55e':p>=45?'#eab308':'#ef4444';
+      return `<tr><td class="cn">${r.company}</td><td><span class="ats-badge">${r.ats_system}</span></td><td><div class="pass-bar"><div class="bar"><div class="fill" style="width:${p}%;background:${c}"></div></div><span class="pct" style="color:${c}">${p}%</span></div></td><td>${r.must_have_hit}</td><td>${r.tools_hit}</td></tr>`;
+    }).join('');
+    return `<div class="result-card" style="margin-top:20px"><h3>🏢 Company ATS Bypass Rankings</h3><p style="font-size:.78rem;color:var(--t3);margin-bottom:8px">Your resume ranked against real ATS systems (Workday, Taleo, SuccessFactors) used by top semiconductor companies</p><table class="company-table"><thead><tr><th>Company</th><th>ATS System</th><th>Pass Probability</th><th>Must-Have</th><th>Tools</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  if(ca.mode==="single" && ca.analysis){
+    const a=ca.analysis;const p=a.pass_probability;
+    const c=p>=70?'#22c55e':p>=45?'#eab308':'#ef4444';
+    const mustHit=a.must_have_matched.map(s=>`<span class="sk hit">${s}</span>`).join('');
+    const mustMiss=a.must_have_missing.map(s=>`<span class="sk miss">${s}</span>`).join('');
+    const tHit=a.tools_matched.map(s=>`<span class="sk tool">${s}</span>`).join('');
+    const tMiss=a.tools_missing.map(s=>`<span class="sk miss">${s}</span>`).join('');
+    const bz=(a.buzzwords_matched||[]).map(s=>`<span class="sk hit">${s}</span>`).join('');
+    const nd=(a.process_nodes_matched||[]).map(s=>`<span class="sk tool">${s}</span>`).join('');
+    const spHit=a.strong_plus_matched.map(s=>`<span class="sk hit">${s}</span>`).join('');
+    const spMiss=a.strong_plus_missing.slice(0,6).map(s=>`<span class="sk miss">${s}</span>`).join('');
+    return `<div class="result-card" style="margin-top:20px"><div class="role-header"><h3>🏢 ${a.company} ATS Analysis</h3><div class="fit-badge" style="color:${c};background:${c}15;border:1px solid ${c}30">${p}%</div></div><p style="font-size:.78rem;color:var(--t3);margin-bottom:12px">ATS System: <span class="ats-badge">${a.ats_system}</span> • Action Verbs: ${a.action_verbs_count}</p><div class="company-detail"><div class="cd-box"><h4>✅ Must-Have (${a.must_have_matched.length}/${a.must_have_matched.length+a.must_have_missing.length})</h4><div class="skills-row">${mustHit}${mustMiss}</div></div><div class="cd-box"><h4>🛠️ Tools (${a.tools_matched.length}/${a.tools_matched.length+a.tools_missing.length})</h4><div class="skills-row">${tHit}${tMiss}</div></div></div>${bz?`<div class="section-label">Buzzwords Found</div><div class="skills-row">${bz}</div>`:''}${nd?`<div class="section-label">Process Nodes</div><div class="skills-row">${nd}</div>`:''}${spHit?`<div class="section-label">Strong-Plus Matched (${a.strong_plus_matched.length})</div><div class="skills-row">${spHit}</div>`:''}${spMiss?`<div class="section-label">Missing Strong-Plus</div><div class="skills-row">${spMiss}</div>`:''}</div>`;
+  }
+  return '';
+}</ul></div>`:''}
+  ${renderCompanyBypass(d.company_analysis)}`;
 }
 
 // ─── AUTO-REFRESH STATS ─────────────────────────

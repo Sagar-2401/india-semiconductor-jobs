@@ -160,8 +160,9 @@ def classify_job(payload: dict):
 async def analyze_resume(
     file: UploadFile = File(..., description="PDF resume file"),
     role: str = Form("VLSI", description="Target role: VLSI, FPGA, Verification, etc."),
+    company: str = Form("", description="Target company: Intel, AMD, NVIDIA, etc. (empty = all)"),
 ):
-    """Upload a PDF resume and get ATS score + role-specific feedback."""
+    """Upload a PDF resume and get ATS score + role-specific feedback + company bypass analysis."""
     # Validate file type
     if not file.filename.lower().endswith(".pdf"):
         return {"error": "Only PDF files are supported. Please upload a .pdf file."}
@@ -180,7 +181,7 @@ async def analyze_resume(
 
     # Run analysis
     try:
-        result = full_resume_analysis(pdf_bytes, role)
+        result = full_resume_analysis(pdf_bytes, role, company if company else None)
         result["filename"] = file.filename
         return result
     except ValueError as e:
@@ -196,6 +197,18 @@ def get_available_roles():
     return {
         "roles": list(DOMAIN_KEYWORDS.keys()),
         "default": "VLSI",
+    }
+
+
+@app.get("/api/resume/companies")
+def get_available_companies():
+    """Get list of company ATS profiles available for bypass analysis."""
+    from backend.resume_analyzer import COMPANY_ATS_PROFILES
+    return {
+        "companies": [
+            {"name": name, "ats_system": p["ats_system"]}
+            for name, p in COMPANY_ATS_PROFILES.items()
+        ]
     }
 
 
